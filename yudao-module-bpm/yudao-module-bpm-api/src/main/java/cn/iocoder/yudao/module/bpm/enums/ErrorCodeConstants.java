@@ -14,6 +14,7 @@ public interface ErrorCodeConstants {
 
     // ========== OA 流程模块 1009001000 ==========
     ErrorCode OA_LEAVE_NOT_EXISTS = new ErrorCode(1009001001, "请假申请不存在");
+    ErrorCode OA_TENDER_NOT_EXISTS = new ErrorCode(1010001001, "投标申请不存在");
     ErrorCode OA_PM_POST_NOT_EXISTS = new ErrorCode(1009001002, "项目经理岗位未设置");
     ErrorCode OA_DEPART_PM_POST_NOT_EXISTS = new ErrorCode(1009001009, "部门的项目经理不存在");
     ErrorCode OA_BM_POST_NOT_EXISTS = new ErrorCode(1009001004, "部门经理岗位未设置");

@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '芋道管理系统',
+      title: '平天下管理系统',
       logo: logoImg
     }
   }

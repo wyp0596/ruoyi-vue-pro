@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 部门 API 实现类
@@ -25,6 +26,11 @@ public class DeptApiImpl implements DeptApi {
     public DeptRespDTO getDept(Long id) {
         DeptDO dept = deptService.getDept(id);
         return DeptConvert.INSTANCE.convert03(dept);
+    }
+
+    @Override
+    public Set<Long> getChildDeptIdSet(Long id) {
+        return deptService.getChildDeptIdListFromCache(id);
     }
 
     @Override

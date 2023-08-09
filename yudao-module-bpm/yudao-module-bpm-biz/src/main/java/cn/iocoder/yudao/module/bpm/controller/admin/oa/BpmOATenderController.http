@@ -1,0 +1,8 @@
+### 请求 /bpm/oa/tender/create 接口 => 成功
+POST {{baseUrl}}/bpm/oa/tender/create
+Content-Type: application/json
+tenant-id: 1
+Authorization: Bearer {{token}}
+
+{
+}

@@ -3,7 +3,7 @@ package cn.iocoder.yudao.module.pay.dal.dataobject.channel;
 import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.framework.pay.core.client.PayClientConfig;
 import cn.iocoder.yudao.framework.pay.core.enums.channel.PayChannelEnum;
-import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
+import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 import cn.iocoder.yudao.module.pay.dal.dataobject.app.PayAppDO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -27,7 +27,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PayChannelDO extends TenantBaseDO {
+public class PayChannelDO extends BaseDO {
 
     /**
      * 渠道编号，数据库自增

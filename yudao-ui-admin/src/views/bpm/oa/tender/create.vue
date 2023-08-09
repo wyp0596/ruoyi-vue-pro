@@ -1,0 +1,108 @@
+<template>
+  <div class="app-container">
+    <!-- 对话框(添加 / 修改) -->
+      <el-form ref="form" :model="form" :rules="rules" label-width="110px" label-position="left">
+
+        <el-form-item label="项目名称：" prop="projectName">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.projectName" placeholder="请输入项目名称" />
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="预采购产品：" prop="projectProduct">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.projectProduct" placeholder="请输入预采购产品" />
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="金额（万）：" prop="projectMoney">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.projectMoney" placeholder="请输入金额" />
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="招标日期" prop="projectDate">
+            <el-date-picker clearable size="small" v-model="form.projectDate" type="date" value-format="timestamp" placeholder="选择招标日期" />
+        </el-form-item>
+
+        <el-form-item label="客户名称：" prop="customerName">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.customerName" placeholder="请输入客户名称" />
+          </el-col>
+        </el-form-item>
+        <el-form-item label="联系人：" prop="contactName">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.contactName" placeholder="请输入联系人" />
+          </el-col>
+        </el-form-item>
+        <el-form-item label="手机号：" prop="contactPhone">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.contactPhone" placeholder="请输入手机号" />
+          </el-col>
+        </el-form-item>
+        <el-form-item label="职务：" prop="contactJob">
+          <el-col :span="40">
+            <el-input type="text" :rows="1" v-model="form.contactJob" placeholder="请输入职务" />
+          </el-col>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm">提 交</el-button>
+        </el-form-item>
+      </el-form>
+  </div>
+</template>
+
+<script>
+import { createTender}  from "@/api/bpm/tender"
+
+export default {
+  name: "BpmOALeaveCreate",
+  components: {
+  },
+  data() {
+    return {
+      // 表单参数
+      form: {
+        projectName: undefined,
+        projectProduct: undefined,
+        projectMoney: undefined,
+        projectDate: undefined,
+        customerName: undefined,
+        contactName: undefined,
+        contactPhone: undefined,
+        contactJob: undefined,
+      },
+      // 表单校验
+      rules: {
+        projectName: [{ required: true, message: "不能为空", trigger: "change" }],
+        projectProduct: [{ required: true, message: "不能为空", trigger: "change" }],
+        projectMoney: [{ required: true, message: "不能为空", trigger: "change" }],
+        projectDate: [{ required: true, message: "不能为空", trigger: "blur" }],
+        customerName: [{ required: true, message: "不能为空", trigger: "change" }],
+        contactName: [{ required: true, message: "不能为空", trigger: "change" }],
+        contactPhone: [{ required: true, message: "不能为空", trigger: "change" }],
+      },
+
+    };
+  },
+  created() {
+  },
+  methods: {
+    /** 提交按钮 */
+    submitForm() {
+      this.$refs["form"].validate(valid => {
+        if (!valid) {
+          return;
+        }
+
+        // 添加的提交
+        createTender(this.form).then(response => {
+          this.$modal.msgSuccess("发起成功");
+          this.$tab.closeOpenPage({ path: "/bpm/oa/tender" });
+        });
+      });
+    }
+  }
+};
+</script>

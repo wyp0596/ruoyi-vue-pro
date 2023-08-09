@@ -24,6 +24,14 @@ public interface DeptApi {
     DeptRespDTO getDept(Long id);
 
     /**
+     * 获得指定部门的所有子部门
+     *
+     * @param id 父部门编号
+     * @return 子部门列表
+     */
+    Set<Long> getChildDeptIdSet(Long id);
+
+    /**
      * 获得部门信息数组
      *
      * @param ids 部门编号数组

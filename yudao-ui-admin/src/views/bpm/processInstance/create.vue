@@ -5,11 +5,12 @@
       <el-table v-loading="loading" :data="list">
         <el-table-column label="流程名称" align="center" prop="name" width="200">
           <template v-slot="scope">
-            <el-button type="text" @click="handleBpmnDetail(scope.row)">
+            <el-button type="text" @click="handleSelect(scope.row)">
               <span>{{ scope.row.name }}</span>
             </el-button>
           </template>
         </el-table-column>
+        <el-table-column label="流程描述" align="center" prop="description" width="300" show-overflow-tooltip />
         <el-table-column label="流程分类" align="center" prop="category" width="100">
           <template v-slot="scope">
             <dict-tag :type="DICT_TYPE.BPM_MODEL_CATEGORY" :value="scope.row.category" />
@@ -18,12 +19,6 @@
         <el-table-column label="流程版本" align="center" prop="processDefinition.version" width="80">
           <template v-slot="scope">
             <el-tag size="medium" v-if="scope.row">v{{ scope.row.version }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="流程描述" align="center" prop="description" width="300" show-overflow-tooltip />
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-          <template v-slot="scope">
-            <el-button type="text" size="small" icon="el-icon-plus" @click="handleSelect(scope.row)">选择</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -35,7 +30,7 @@
           <span class="el-icon-document">申请信息【{{ selectProcessInstance.name }}】</span>
           <el-button style="float: right;" type="primary" @click="selectProcessInstance = undefined">选择其它流程</el-button>
         </div>
-        <el-col :span="16" :offset="6">
+        <el-col>
           <div>
             <parser :key="new Date().getTime()" :form-conf="detailForm" @submit="submitForm" />
           </div>

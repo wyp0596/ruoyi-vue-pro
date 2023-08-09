@@ -33,7 +33,6 @@
         <module>yudao-spring-boot-starter-biz-pay</module>
         <module>yudao-spring-boot-starter-biz-weixin</module>
         <module>yudao-spring-boot-starter-biz-social</module>
-        <module>yudao-spring-boot-starter-biz-tenant</module>
         <module>yudao-spring-boot-starter-biz-data-permission</module>
         <module>yudao-spring-boot-starter-biz-error-code</module>
         <module>yudao-spring-boot-starter-biz-ip</module>

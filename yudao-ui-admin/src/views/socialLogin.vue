@@ -53,7 +53,7 @@
 
     <!-- footer -->
     <div class="footer">
-      Copyright © 2020-2022 iocoder.cn All Rights Reserved.
+      Copyright © 2023 zp666.top All Rights Reserved.
     </div>
   </div>
 </template>
