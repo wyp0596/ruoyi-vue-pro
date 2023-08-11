@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 /**
- * 投标申请 Convert
+ * 项目报备申请 Convert
  *
  */
 @Mapper

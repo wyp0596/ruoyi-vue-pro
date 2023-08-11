@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title: '平天下管理系统',
+      title: '平安符管理系统',
       logo: logoImg
     }
   }

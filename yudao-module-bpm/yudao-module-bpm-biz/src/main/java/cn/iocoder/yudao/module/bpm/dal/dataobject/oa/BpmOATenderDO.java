@@ -9,7 +9,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 /**
- * OA 投标申请 DO
+ * OA 项目报备申请 DO
  *
  *
  * @author jason
@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 public class BpmOATenderDO extends BaseDO {
 
     /**
-     * 投标申请表单主键
+     * 项目报备申请表单主键
      */
     @TableId
     private Long id;

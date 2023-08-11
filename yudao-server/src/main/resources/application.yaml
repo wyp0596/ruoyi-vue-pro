@@ -30,7 +30,8 @@ spring:
 
   # Cache 配置项
   cache:
-    type: REDIS
+#    type: REDIS
+    type: CAFFEINE
     redis:
       time-to-live: 1h # 设置过期时间为 1 小时
 
@@ -38,10 +39,10 @@ spring:
 
 springdoc:
   api-docs:
-    enabled: true
+    enabled: false
     path: /v3/api-docs
   swagger-ui:
-    enabled: true
+    enabled: false
     path: /swagger-ui
 
 knife4j:
@@ -82,7 +83,8 @@ aj:
   captcha:
     jigsaw: classpath:images/jigsaw # 滑动验证，底图路径，不配置将使用默认图片；以 classpath: 开头，取 resource 目录下路径
     pic-click: classpath:images/pic-click # 滑动验证，底图路径，不配置将使用默认图片；以 classpath: 开头，取 resource 目录下路径
-    cache-type: redis # 缓存 local/redis...
+#    cache-type: redis # 缓存 local/redis...
+    cache-type: local # 缓存 local/redis...
     cache-number: 1000 # local 缓存的阈值,达到这个值，清除缓存
     timing-clear: 180 # local定时清除过期缓存(单位秒),设置为0代表不执行
     type: blockPuzzle # 验证码类型 default两种都实例化。 blockPuzzle 滑块拼图 clickWord 文字点选

@@ -3,6 +3,7 @@ package cn.iocoder.yudao.module.bpm.controller.admin.definition;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.util.io.IoUtils;
+import cn.iocoder.yudao.framework.datapermission.core.annotation.DataPermission;
 import cn.iocoder.yudao.module.bpm.controller.admin.definition.vo.model.*;
 import cn.iocoder.yudao.module.bpm.convert.definition.BpmModelConvert;
 import cn.iocoder.yudao.module.bpm.service.definition.BpmModelService;
@@ -38,7 +39,7 @@ public class BpmModelController {
     @GetMapping("/get")
     @Operation(summary = "获得模型")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
-    @PreAuthorize("@ss.hasPermission('bpm:model:query')")
+    @DataPermission(enable = false)
     public CommonResult<BpmModelRespVO> getModel(@RequestParam("id") String id) {
         BpmModelRespVO model = modelService.getModel(id);
         return success(model);

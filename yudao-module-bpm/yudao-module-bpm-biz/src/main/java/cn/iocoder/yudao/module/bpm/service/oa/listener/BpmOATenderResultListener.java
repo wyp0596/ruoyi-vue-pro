@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * OA 投标单的结果的监听器实现类
+ * OA 项目报备单的结果的监听器实现类
  *
  */
 @Component

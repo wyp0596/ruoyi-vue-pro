@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.Collection;
 
 /**
- * 投标申请 Mapper
+ * 项目报备申请 Mapper
  *
  */
 @Mapper
@@ -20,6 +20,9 @@ public interface BpmOATenderMapper extends BaseMapperX<BpmOATenderDO> {
         return selectPage(reqVO, new LambdaQueryWrapperX<BpmOATenderDO>()
                 .inIfPresent(BpmOATenderDO::getUserId, userIds)
                 .eqIfPresent(BpmOATenderDO::getResult, reqVO.getResult())
+                .likeIfPresent(BpmOATenderDO::getCustomerName, reqVO.getCustomerName())
+                .likeIfPresent(BpmOATenderDO::getProjectName, reqVO.getProjectName())
+                .betweenIfPresent(BpmOATenderDO::getProjectDate, reqVO.getProjectDate())
                 .betweenIfPresent(BpmOATenderDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(BpmOATenderDO::getId));
     }

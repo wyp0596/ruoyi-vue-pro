@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
-@Schema(description = "管理后台 - 投标申请创建 Request VO")
+@Schema(description = "管理后台 - 项目报备申请创建 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

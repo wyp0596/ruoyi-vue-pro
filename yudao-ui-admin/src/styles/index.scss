@@ -13,6 +13,18 @@ input, textarea{
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 }
 
+@media (max-width: 768px) {
+  .el-date-range-picker .el-picker-panel__body {
+    min-width: 100%;
+  }
+  .el-date-range-picker__content{
+    width: 100% !important;
+  }
+  .el-date-range-picker{
+    width: 100% !important;
+  }
+}
+
 .editor-tabs{
   background: $editorTabsborderColor;
   .el-tabs__header{

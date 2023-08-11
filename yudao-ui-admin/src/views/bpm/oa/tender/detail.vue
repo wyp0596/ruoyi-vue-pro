@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      tenderId: undefined, // 投标编号
+      tenderId: undefined, // 项目报备编号
       // 表单参数
       form: {
         projectName: undefined,
@@ -69,13 +69,13 @@ export default {
   created() {
     this.tenderId = this.id || this.$route.query.id;
     if (!this.tenderId) {
-      this.$message.error('未传递 id 参数，无法查看 OA 投标信息');
+      this.$message.error('未传递 id 参数，无法查看 OA 项目报备信息');
       return;
     }
     this.getDetail();
   },
   methods: {
-    /** 获得投标信息 */
+    /** 获得项目报备信息 */
     getDetail() {
       getTender(this.tenderId).then(response => {
         this.form = response.data;

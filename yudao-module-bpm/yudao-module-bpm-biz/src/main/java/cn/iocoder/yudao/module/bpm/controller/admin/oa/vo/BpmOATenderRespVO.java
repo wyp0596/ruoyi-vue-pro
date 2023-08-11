@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@Schema(description = "管理后台 - 投标申请 Response VO")
+@Schema(description = "管理后台 - 项目报备申请 Response VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class BpmOATenderRespVO extends BpmOATenderBaseVO {
 
-    @Schema(description = "投标申请表单主键", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
+    @Schema(description = "项目报备申请表单主键", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
     @Schema(description = "状态-参见 bpm_process_instance_result 枚举", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
@@ -30,6 +30,9 @@ public class BpmOATenderRespVO extends BpmOATenderBaseVO {
 
     @Schema(description = "流程id")
     private String processInstanceId;
+
+    @Schema(description = "发起人id")
+    private Long userId;
 
     @Schema(description = "发起人昵称")
     private String nickname;

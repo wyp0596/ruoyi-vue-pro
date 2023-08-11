@@ -102,51 +102,44 @@
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
-          <el-col :span="12">
+          <el-form-item v-if="form.id === undefined" label="用户账号" prop="username">
+            <el-input v-model="form.username" placeholder="请输入用户账号" />
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item v-if="form.id === undefined" label="用户密码" prop="password">
+            <el-input v-model="form.password" placeholder="请输入用户密码" type="password" show-password />
+          </el-form-item>
+        </el-row>
+        <el-row>
             <el-form-item label="用户昵称" prop="nickname">
               <el-input v-model="form.nickname" placeholder="请输入用户昵称" />
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="归属部门" prop="deptId">
-              <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" :clearable="false"
-                          placeholder="请选择归属部门" :normalizer="normalizer"/>
-            </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="手机号码" prop="mobile">
-              <el-input v-model="form.mobile" placeholder="请输入手机号码" maxlength="11" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
+          <el-form-item label="归属部门" prop="deptId">
+            <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" :clearable="false"
+                        placeholder="请选择归属部门" :normalizer="normalizer"/>
+          </el-form-item>
+        </el-row>
+        <el-row>
+          <el-form-item label="手机号码" prop="mobile">
+            <el-input v-model="form.mobile" placeholder="请输入手机号码" maxlength="11" />
+          </el-form-item>
+        </el-row>
+        <el-row>
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="50" />
             </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item v-if="form.id === undefined" label="用户名称" prop="username">
-              <el-input v-model="form.username" placeholder="请输入用户名称" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item v-if="form.id === undefined" label="用户密码" prop="password">
-              <el-input v-model="form.password" placeholder="请输入用户密码" type="password" show-password />
-            </el-form-item>
-          </el-col>
+          <el-form-item label="用户性别">
+            <el-select v-model="form.sex" placeholder="请选择">
+              <el-option v-for="dict in sexDictDatas" :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>
+            </el-select>
+          </el-form-item>
         </el-row>
         <el-row>
-          <el-col :span="12">
-            <el-form-item label="用户性别">
-              <el-select v-model="form.sex" placeholder="请选择">
-                <el-option v-for="dict in sexDictDatas" :key="parseInt(dict.value)" :label="dict.label" :value="parseInt(dict.value)"/>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="岗位">
               <el-select v-model="form.postIds" multiple placeholder="请选择">
                 <el-option
@@ -157,14 +150,11 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-          </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
             <el-form-item label="备注">
               <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
             </el-form-item>
-          </el-col>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -321,6 +311,9 @@ export default {
       ],
       // 表单校验
       rules: {
+        deptId: [
+          { required: true, message: "归属部门不能为空", trigger: "blur" }
+        ],
         username: [
           { required: true, message: "用户名称不能为空", trigger: "blur" }
         ],
@@ -338,7 +331,7 @@ export default {
           }
         ],
         mobile: [
-          {
+          { required: true, message: "手机号码不能为空", trigger: "blur" }, {
             pattern: /^(?:(?:\+|00)86)?1(?:3[\d]|4[5-79]|5[0-35-9]|6[5-7]|7[0-8]|8[\d]|9[189])\d{8}$/,
             message: "请输入正确的手机号码",
             trigger: "blur"

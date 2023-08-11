@@ -2,6 +2,8 @@ package cn.iocoder.yudao.module.bpm.controller.admin.oa;
 
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.datapermission.core.annotation.DataPermission;
+import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.ApprovalUserRespVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.BpmOATenderCreateReqVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.BpmOATenderPageReqVO;
 import cn.iocoder.yudao.module.bpm.controller.admin.oa.vo.BpmOATenderRespVO;
@@ -22,10 +24,10 @@ import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
 /**
- * OA 投标申请 Controller
+ * OA 项目报备申请 Controller
  *
  */
-@Tag(name = "管理后台 - OA 投标申请")
+@Tag(name = "管理后台 - OA 项目报备申请")
 @RestController
 @RequestMapping("/bpm/oa/tender")
 @Validated
@@ -43,7 +45,7 @@ public class BpmOATenderController {
 
     @GetMapping("/get")
     @PreAuthorize("@ss.hasPermission('bpm:oa-tender:query')")
-    @Operation(summary = "获得投标申请")
+    @Operation(summary = "获得项目报备申请")
     @Parameter(name = "id", description = "编号", required = true, example = "1024")
     public CommonResult<BpmOATenderRespVO> getTender(@RequestParam("id") Long id) {
         BpmOATenderDO tender = tenderService.getTender(id);
@@ -52,10 +54,18 @@ public class BpmOATenderController {
 
     @GetMapping("/page")
     @PreAuthorize("@ss.hasPermission('bpm:oa-tender:query')")
-    @Operation(summary = "获得投标申请分页")
+    @Operation(summary = "获得项目报备申请分页")
     public CommonResult<PageResult<BpmOATenderRespVO>> getTenderPage(@Valid BpmOATenderPageReqVO pageVO) {
         PageResult<BpmOATenderDO> pageResult = tenderService.getTenderPage(getLoginUserId(), pageVO);
         return success(BpmOATenderConvert.INSTANCE.convertPage(pageResult));
     }
 
+    @GetMapping("/approvalUser")
+    @PreAuthorize("@ss.hasPermission('bpm:oa-tender:query')")
+    @DataPermission(enable = false)
+    @Operation(summary = "获得审批人姓名")
+    @Parameter(name = "userId", description = "发起人id", required = true, example = "1")
+    public CommonResult<ApprovalUserRespVO> approvalUser(@RequestParam("userId") Long userId) {
+        return success(tenderService.getApprovalUser(userId));
+    }
 }

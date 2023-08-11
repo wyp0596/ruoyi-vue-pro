@@ -9,7 +9,7 @@
       <div class="field">
         <!-- [移动端]标题 -->
         <h2 class="mobile-title">
-          <h3 class="title">平天下后台管理系统</h3>
+          <h3 class="title">平安符后台管理系统</h3>
         </h2>
 
         <!-- 表单 -->

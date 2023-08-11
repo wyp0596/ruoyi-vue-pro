@@ -145,14 +145,14 @@ export const constantRoutes = [
         meta: {title: '查看 OA 请假', icon: 'view', activeMenu: '/bpm/oa/leave'}
       }, {
         path: 'oa/tender/create',
-        component: (resolve) => require(['@/views/bpm/oa/tender/create'], resolve),
+        component: (resolve) => require(['@/views/index'], resolve),
         name: 'BpmOATenderCreate',
-        meta: {title: '发起 OA 投标', icon: 'form', activeMenu: '/bpm/oa/tender'}
+        meta: {title: '新项目报备', icon: 'form', activeMenu: '/bpm/oa/tender'}
       }, {
         path: 'oa/tender/detail',
         component: (resolve) => require(['@/views/bpm/oa/tender/detail'], resolve),
         name: 'BpmOATenderDetail',
-        meta: {title: '查看 OA 投标', icon: 'view', activeMenu: '/bpm/oa/tender'}
+        meta: {title: '查看项目报备', icon: 'view', activeMenu: '/bpm/oa/tender'}
       }
     ]
   },

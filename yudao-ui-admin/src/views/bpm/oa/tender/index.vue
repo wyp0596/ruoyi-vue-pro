@@ -4,6 +4,16 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form-item label="客户名称" prop="customerName">
+        <el-input type="text" v-model="queryParams.customerName" placeholder="请输入客户名称" maxlength="100" />
+      </el-form-item>
+      <el-form-item label="项目名称" prop="projectName">
+        <el-input type="text" v-model="queryParams.projectName" placeholder="请输入项目名称" maxlength="100" />
+      </el-form-item>
+      <el-form-item label="招标日期" prop="projectDate">
+        <el-date-picker v-model="queryParams.projectDate" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
+                        range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
+      </el-form-item>
       <el-form-item label="申请时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
                         range-separator="-" start-placeholder="开始日期" end-placeholder="结束日期" :default-time="['00:00:00', '23:59:59']" />
@@ -11,7 +21,7 @@
       <el-form-item label="结果" prop="result">
         <el-select v-model="queryParams.result" placeholder="请选择流结果" clearable>
           <el-option v-for="dict in this.getDictDatas(DICT_TYPE.BPM_PROCESS_INSTANCE_RESULT)"
-                     :key="dict.value" :label="dict.label" :value="dict.value"/>
+                     :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -24,47 +34,53 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="el-icon-plus" size="mini"
-                   v-hasPermi="['bpm:oa-tender:create']" @click="handleAdd">发起投标</el-button>
+                   v-hasPermi="['bpm:oa-tender:create']" @click="handleAdd">新项目报备</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="申请编号" align="center" prop="id" />
+      <el-table-column label="项目名称" align="center" prop="projectName">
+        <template v-slot="scope">
+          <el-button size="mini" type="text" icon="el-icon-view" @click="handleDetail(scope.row)">
+            {{ scope.row.projectName }}
+          </el-button>
+        </template>
+      </el-table-column>
       <el-table-column label="状态" align="center" prop="result">
         <template v-slot="scope">
           <dict-tag :type="DICT_TYPE.BPM_PROCESS_INSTANCE_RESULT" :value="scope.row.result"/>
         </template>
       </el-table-column>
       <el-table-column label="发起人" align="center" prop="nickname" width="120" />
-      <el-table-column label="项目名称" align="center" prop="projectName" />
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200">
+        <template v-slot="scope">
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleCancel(scope.row)"
+                     v-hasPermi="['bpm:oa-tender:create']" v-if="scope.row.result === 1 && scope.row.userId === store.getters.userId">取消项目报备</el-button>
+<!--          <el-button size="mini" type="text" icon="el-icon-view" @click="handleDetail(scope.row)"-->
+<!--                     v-hasPermi="['bpm:oa-tender:query']">详情</el-button>-->
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleProcessDetail(scope.row)">审批进度</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="申请编号" align="center" prop="id" />
       <el-table-column label="预采购产品" align="center" prop="projectProduct" />
       <el-table-column label="金额（万）" align="center" prop="projectMoney" />
       <el-table-column label="招标日期" align="center" prop="projectDate" width="180">
         <template v-slot="scope">
-          <span>{{ parseTime(scope.row.projectDate) }}</span>
+          <span>{{ parseTime(scope.row.projectDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="客户名称" align="center" prop="customerName" />
       <el-table-column label="联系人" align="center" prop="contactName" />
       <el-table-column label="手机号" align="center" prop="contactPhone" />
-      <el-table-column label="职务" align="center" prop="contactJob" />
+<!--      <el-table-column label="职务" align="center" prop="contactJob" />-->
 
-      <el-table-column label="申请时间" align="center" prop="applyTime" width="180">
-        <template v-slot="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200">
-        <template v-slot="scope">
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleCancel(scope.row)"
-                     v-hasPermi="['bpm:oa-tender:create']" v-if="scope.row.result === 1">取消投标</el-button>
-          <el-button size="mini" type="text" icon="el-icon-view" @click="handleDetail(scope.row)"
-                     v-hasPermi="['bpm:oa-tender:query']">详情</el-button>
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleProcessDetail(scope.row)">审批进度</el-button>
-        </template>
-      </el-table-column>
+<!--      <el-table-column label="申请时间" align="center" prop="applyTime" width="180">-->
+<!--        <template v-slot="scope">-->
+<!--          <span>{{ parseTime(scope.row.createTime) }}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
     </el-table>
     <!-- 分页组件 -->
     <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
@@ -77,9 +93,15 @@
 import { getTenderPage } from "@/api/bpm/tender"
 import { getDictDatas, DICT_TYPE } from '@/utils/dict'
 import {cancelProcessInstance} from "@/api/bpm/processInstance";
+import store from "@/store";
 
 export default {
   name: "BpmOATender",
+  computed: {
+    store() {
+      return store
+    }
+  },
   components: {
   },
   data() {
@@ -87,16 +109,19 @@ export default {
       // 遮罩层
       loading: true,
       // 显示搜索条件
-      showSearch: true,
+      showSearch: false,
       // 总条数
       total: 0,
-      // 投标申请列表
+      // 项目报备申请列表
       list: [],
       // 查询参数
       queryParams: {
         pageNo: 1,
         pageSize: 10,
         result: null,
+        customerName: null,
+        projectName: null,
+        projectDate: [],
         createTime: []
       },
 
@@ -139,7 +164,7 @@ export default {
     handleProcessDetail(row) {
       this.$router.push({ name: "BpmProcessInstanceDetail", query: { id: row.processInstanceId}});
     },
-    /** 取消投标 */
+    /** 取消项目报备 */
     handleCancel(row) {
       const id = row.processInstanceId;
       this.$prompt('请输入取消原因？', "取消流程", {

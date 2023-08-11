@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 创建投标申请
+// 创建项目报备申请
 export function createTender(data) {
   return request({
     url: '/bpm/oa/tender/create',
@@ -9,7 +9,7 @@ export function createTender(data) {
   })
 }
 
-// 获得投标申请
+// 获得项目报备申请
 export function getTender(id) {
   return request({
     url: '/bpm/oa/tender/get?id=' + id,
@@ -17,7 +17,16 @@ export function getTender(id) {
   })
 }
 
-// 获得投标申请分页
+// 获得审批人信息
+export function getApprovalUser(userId) {
+  return request({
+    url: '/bpm/oa/tender/approvalUser?userId=' + userId,
+    method: 'get'
+  })
+}
+
+
+// 获得项目报备申请分页
 export function getTenderPage(query) {
   return request({
     url: '/bpm/oa/tender/page',
